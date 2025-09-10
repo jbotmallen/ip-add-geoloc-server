@@ -27,3 +27,16 @@ export function validateIP(ipAddress: string): boolean {
 
   return false; // Neither IPv4 nor IPv6
 }
+
+export const getCookieOptions = () => {
+  const isProduction = process.env.NODE_ENV === 'production';
+  const hasSecret = !!process.env.SESSION_SECRET;
+
+  return {
+    expires: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000),
+    httpOnly: true,
+    secure: isProduction,
+    sameSite: 'strict' as const,
+    signed: hasSecret
+  };
+};
