@@ -33,7 +33,7 @@ export const searchGeoLocations = async (
     }
 
     const token = process.env.IPINFO_TOKEN;
-    let authToken = req.signedCookies?.token;
+    let authToken = req.cookies?.token;
 
     if (!authToken) {
         authToken = req.headers.authorization?.split(' ')[1];
@@ -127,7 +127,7 @@ export const getUserGeolocationHistory = async (
         const limit = parseInt(req.query.limit as string) || 10;
         const skip = (page - 1) * limit;
 
-        let token = req.signedCookies?.token;
+        let token = req.cookies?.token;
         if (!token) {
             token = req.headers.authorization?.split(' ')[1];
         }

@@ -24,7 +24,7 @@ export const isAuthenticated = (
     next: NextFunction
 ): void => {
     try {
-        let token = req.signedCookies?.token;
+        let token = req.cookies?.token;
 
         if (!token) {
             const authHeader = req.headers.authorization;
@@ -83,7 +83,7 @@ export const isGuest = (
     next: NextFunction
 ): void => {
     try {
-        const token = req.signedCookies?.token;
+        const token = req.cookies?.token;
 
         if (token) {
             jwt.verify(token, process.env.JWT_SECRET || 'secret');

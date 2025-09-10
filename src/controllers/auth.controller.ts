@@ -4,13 +4,10 @@ import jwt, { JwtPayload } from 'jsonwebtoken';
 import { getCookieOptions } from '../utils/helpers';
 
 const cookieOptions = {
-    expires: new Date(
-        Date.now() + 7 * 24 * 60 * 60 * 1000
-    ),
+    expires: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000),
     httpOnly: true,
     secure: process.env.NODE_ENV === 'production',
     sameSite: 'strict' as const,
-    signed: true
 };
 
 export const register = async (
@@ -97,7 +94,7 @@ export const login = async (
 
         const token = user.generateAuthToken();
 
-        res.cookie('token', token, getCookieOptions());
+        res.cookie('token', token, cookieOptions);
 
         const userResponse = user.toObject();
         delete (userResponse as any).password;
@@ -122,7 +119,6 @@ export const logout = async (
         res.cookie('token', '', {
             expires: new Date(0),
             httpOnly: true,
-            signed: true,
         });
 
         res.status(200).json({
@@ -139,7 +135,7 @@ export const getSession = async (
     res: Response,
 ): Promise<void> => {
     try {
-        let token = req.signedCookies?.token;
+        let token = req.cookies?.token;
 
         if (!token) {
             const authHeader = req.headers.authorization;
