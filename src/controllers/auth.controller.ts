@@ -139,7 +139,7 @@ export const getSession = async (
     res: Response,
 ): Promise<void> => {
     try {
-        let token = Cookies?.token;
+        let token = req.signedCookies?.token;
 
         if (!token) {
             const authHeader = req.headers.authorization;
