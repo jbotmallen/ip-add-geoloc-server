@@ -21,8 +21,8 @@ app.use(helmet({
 }));
 app.use(cors({
     origin: process.env.NODE_ENV === 'production'
-        ? process.env.ALLOWED_ORIGINS?.split(',')
-        : ['http://localhost:5173', 'http://localhost:5174', process.env.FRONTEND_URL!],
+        ? process.env.FRONTEND_URL!
+        : ['http://localhost:5173', 'http://localhost:5174'],
     credentials: true
 }));
 app.use(compression());
