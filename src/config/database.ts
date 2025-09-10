@@ -1,25 +1,63 @@
-import mongoose from 'mongoose';
+// config/database.ts
+import mongoose, { Mongoose } from 'mongoose';
 
-const connectDB = async (): Promise<void> => {
+declare global {
+  var mongoose: {
+    conn: Mongoose | null;
+    promise: Promise<Mongoose> | null;
+  };
+}
+
+// Prevent multiple connections in serverless environment
+let cached = global.mongoose || { conn: null, promise: null };
+
+if (!cached) {
+  cached = global.mongoose = { conn: null, promise: null };
+}
+
+async function connectDB(): Promise<Mongoose> {
+  // Return existing connection if available
+  if (cached.conn) {
+    console.log('Using cached database connection');
+    return cached.conn;
+  }
+
+  // Return ongoing connection promise if connecting
+  if (cached.promise) {
+    console.log('Database connection in progress...');
+    return await cached.promise;
+  }
+
   try {
-    const mongoUri = process.env.MONGODB_URI || 'mongodb://localhost:27017/rest-api';
+    const mongoUri = process.env.MONGODB_URI;
     
-    await mongoose.connect(mongoUri);
+    if (!mongoUri) {
+      throw new Error('MONGODB_URI is not defined in environment variables');
+    }
+
+    // Important options for serverless
+    const opts = {
+      bufferCommands: false, // Disable buffering
+      maxPoolSize: 10,
+      serverSelectionTimeoutMS: 5000,
+      socketTimeoutMS: 45000,
+    };
+
+    console.log('Creating new database connection...');
     
-    console.log('MongoDB connected successfully');
-    
-    mongoose.connection.on('error', (error) => {
-      console.error('MongoDB connection error:', error);
+    cached.promise = mongoose.connect(mongoUri, opts).then((mongoose) => {
+      console.log('MongoDB connected successfully');
+      return mongoose;
     });
-    
-    mongoose.connection.on('disconnected', () => {
-      console.log('MongoDB disconnected');
-    });
+
+    cached.conn = await cached.promise;
+    return cached.conn;
     
   } catch (error) {
+    cached.promise = null;
     console.error('MongoDB connection failed:', error);
-    process.exit(1);
+    throw error;
   }
-};
+}
 
 export default connectDB;

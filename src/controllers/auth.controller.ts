@@ -139,7 +139,7 @@ export const getSession = async (
 ): Promise<void> => {
     try {
         let token = req.signedCookies?.token;
-        
+
         if (!token) {
             const authHeader = req.headers.authorization;
             if (authHeader && authHeader.startsWith('Bearer ')) {

@@ -4,10 +4,11 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "nodemon --exec ts-node src/server.ts",
+    "dev": "tsx watch src/app.ts",
     "build": "tsc",
-    "start": "node dist/server.js",
-    "lint": "tsc --noEmit"
+    "start": "node dist/app.js",
+    "lint": "tsc --noEmit",
+    "vercel-build": "tsc"
   },
   "repository": {
     "type": "git",
@@ -22,6 +23,7 @@
   },
   "homepage": "https://github.com/IAmTomShaw/my-finance-api#readme",
   "dependencies": {
+    "@vercel/node": "^5.3.21",
     "bcryptjs": "^3.0.2",
     "compression": "^1.8.1",
     "cookie-parser": "^1.4.7",

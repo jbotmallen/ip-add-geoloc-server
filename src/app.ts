@@ -9,6 +9,7 @@ import authRoutes from './routes/auth.routes';
 import geolocationRoutes from './routes/geolocation.routes';
 import { errorHandler, notFound } from './middleware/errorHandler';
 import logger from './middleware/logger';
+import { ensureDbConnected } from './middleware/dbConnection';
 
 dotenv.config();
 
@@ -32,6 +33,9 @@ app.use(express.json({ limit: '10mb' }));
 app.use(cookieParser(process.env.SESSION_SECRET));
 app.use(express.urlencoded({ extended: true, limit: '10mb' }));
 app.use(logger);
+
+app.use(ensureDbConnected);
+
 app.get('/health', (req: Request, res: Response) => {
     res.status(200).json({
         status: 'OK',
