@@ -7,6 +7,9 @@ export const generalLimiter = rateLimit({
   message: 'Too many requests from this IP, please try again later.',
   standardHeaders: true,
   legacyHeaders: false,
+  keyGenerator: function (req: Request) {
+    return req.headers["x-real-ip"] as string || req.ip || req.socket.remoteAddress || 'unknown';
+  }
 });
 
 export const authLimiter = rateLimit({
@@ -14,6 +17,9 @@ export const authLimiter = rateLimit({
   max: 5, // Limit each IP to 5 requests per windowMs
   message: 'Too many authentication attempts, please try again later.',
   skipSuccessfulRequests: true,
+  keyGenerator: function (req: Request) {
+    return req.headers["x-real-ip"] as string || req.ip || req.socket.remoteAddress || 'unknown';
+  }
 });
 
 export const apiLimiter = rateLimit({
@@ -26,5 +32,8 @@ export const apiLimiter = rateLimit({
       message: 'API rate limit exceeded. Please try again later.',
       retryAfter: 60
     });
+  },
+  keyGenerator: function (req: Request) {
+    return req.headers["x-real-ip"] as string || req.ip || req.socket.remoteAddress || 'unknown';
   }
 });
