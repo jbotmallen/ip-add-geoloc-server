@@ -1,0 +1,17 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.ONE_MINUTE = exports.FIVE_MINUTES = exports.FIFTEEN_MINUTES = exports.THIRTY_MINUTES = exports.ONE_HOUR = exports.ONE_DAY = exports.SEVEN_DAYS = void 0;
+const SEVEN_DAYS = 7 * 24 * 60 * 60 * 1000;
+exports.SEVEN_DAYS = SEVEN_DAYS;
+const ONE_DAY = 24 * 60 * 60 * 1000;
+exports.ONE_DAY = ONE_DAY;
+const ONE_HOUR = 60 * 60 * 1000;
+exports.ONE_HOUR = ONE_HOUR;
+const THIRTY_MINUTES = 30 * 60 * 1000;
+exports.THIRTY_MINUTES = THIRTY_MINUTES;
+const FIFTEEN_MINUTES = 15 * 60 * 1000;
+exports.FIFTEEN_MINUTES = FIFTEEN_MINUTES;
+const FIVE_MINUTES = 5 * 60 * 1000;
+exports.FIVE_MINUTES = FIVE_MINUTES;
+const ONE_MINUTE = 60 * 1000;
+exports.ONE_MINUTE = ONE_MINUTE;
