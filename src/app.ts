@@ -15,7 +15,7 @@ dotenv.config();
 
 const app: Application = express();
 
-app.set('trust proxy', true);
+app.set('trust proxy', 1);
 app.use(helmet({
     contentSecurityPolicy: process.env.NODE_ENV === 'production' ? undefined : false
 }));
