@@ -18,6 +18,8 @@ const app: Application = express();
 const requiredEnvVars = ['SESSION_SECRET', 'MONGODB_URI', 'JWT_SECRET'];
 const missingEnvVars = requiredEnvVars.filter(varName => !process.env[varName]);
 
+console.log('Environment Variables:', process.env.NODE_ENV);
+
 if (missingEnvVars.length > 0 && process.env.NODE_ENV === 'production') {
     console.error(`Missing required environment variables: ${missingEnvVars.join(', ')}`);
     throw new Error(`Missing required environment variables: ${missingEnvVars.join(', ')}`);
