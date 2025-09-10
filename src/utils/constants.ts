@@ -1,0 +1,17 @@
+const SEVEN_DAYS = 7 * 24 * 60 * 60 * 1000;
+const ONE_DAY = 24 * 60 * 60 * 1000;
+const ONE_HOUR = 60 * 60 * 1000;
+const THIRTY_MINUTES = 30 * 60 * 1000;
+const FIFTEEN_MINUTES = 15 * 60 * 1000;
+const FIVE_MINUTES = 5 * 60 * 1000;
+const ONE_MINUTE = 60 * 1000;
+
+export {
+    SEVEN_DAYS,
+    ONE_DAY,
+    ONE_HOUR,
+    THIRTY_MINUTES,
+    FIFTEEN_MINUTES,
+    FIVE_MINUTES,
+    ONE_MINUTE
+};
