@@ -8,7 +8,6 @@ import dotenv from 'dotenv';
 import authRoutes from './routes/auth.routes';
 import geolocationRoutes from './routes/geolocation.routes';
 import { errorHandler, notFound } from './middleware/errorHandler';
-import { generalLimiter } from './middleware/rateLimiter';
 import logger from './middleware/logger';
 
 dotenv.config();
@@ -32,8 +31,6 @@ app.use(compression());
 app.use(express.json({ limit: '10mb' }));
 app.use(cookieParser(process.env.SESSION_SECRET));
 app.use(express.urlencoded({ extended: true, limit: '10mb' }));
-app.use(generalLimiter);
-
 app.use(logger);
 app.get('/health', (req: Request, res: Response) => {
     res.status(200).json({

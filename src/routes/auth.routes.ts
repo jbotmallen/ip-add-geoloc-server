@@ -7,12 +7,11 @@ import {
     getSession,
 } from '../controllers/auth.controller';
 import { isAuthenticated, isGuest } from '../middleware/auth';
-import { authLimiter } from '../middleware/rateLimiter';
 
 const router = Router();
 
-router.post('/register', authLimiter, isGuest, register);
-router.post('/login', authLimiter, isGuest, login);
+router.post('/register', isGuest, register);
+router.post('/login', isGuest, login);
 router.post('/logout', isAuthenticated, logout);
 
 router.get('/', getSession);
