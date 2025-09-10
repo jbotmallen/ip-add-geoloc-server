@@ -25,6 +25,9 @@ app.use(cors({
         : ['http://localhost:5173', 'http://localhost:5174'],
     credentials: true
 }));
+console.log('CORS allowed origins:', process.env.NODE_ENV === 'production'
+    ? process.env.FRONTEND_URL!
+    : ['http://localhost:5173', 'http://localhost:5174']);
 app.use(compression());
 app.use(express.json({ limit: '10mb' }));
 app.use(cookieParser(process.env.SESSION_SECRET));
