@@ -42,6 +42,7 @@ export const register = async (
             data: userResponse
         });
     } catch (error) {
+        console.error('Registration error:', error);
         next(error);
     }
 };
@@ -106,6 +107,7 @@ export const login = async (
             data: userResponse
         });
     } catch (error) {
+        console.error('Login error:', error);
         next(error);
     }
 };
