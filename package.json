@@ -10,10 +10,7 @@
     "vercel-build": "tsc",
     "start": "node dist/app.js",
     "lint": "tsc --noEmit",
-    "seed": "node -e \"fetch('http://localhost:8000/api/admin/seed', {method:'POST',headers:{'x-seed-token':'hpRxBuOulQwEiswCfHZOUeqNYmxxnQ1o'}}).then(r=>r.json()).then(console.log).catch(console.error)\"",
-    "seed:clear": "tsx src/seeders/userSeeder.ts --clear",
-    "seed:production:live": "curl -X POST https://your-app.vercel.app/api/admin/seed -H 'x-seed-token: hpRxBuOulQwEiswCfHZOUeqNYmxxnQ1o'",
-    "postinstall": "npm run seed:production"
+    "seed": "node -e \"fetch('http://localhost:8000/api/admin/seed', {method:'POST',headers:{'x-seed-token':$SEEDTOKEN}}).then(r=>r.json()).then(console.log).catch(console.error)\""
   },
   "repository": {
     "type": "git",
