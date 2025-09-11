@@ -1,7 +1,6 @@
 import { Request, Response, NextFunction } from 'express';
 import User from '../models/user';
 import jwt, { JwtPayload } from 'jsonwebtoken';
-import { getCookieOptions } from '../utils/helpers';
 
 const cookieOptions = {
     expires: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000),
