@@ -4,11 +4,16 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "tsx watch src/app.ts",
+    "dev": "tsx watch src/server.dev.ts",
+    "dev:vercel": "vercel dev --listen 8000",
     "build": "tsc",
+    "vercel-build": "tsc",
     "start": "node dist/app.js",
     "lint": "tsc --noEmit",
-    "vercel-build": "tsc"
+    "seed": "node -e \"fetch('http://localhost:8000/api/admin/seed', {method:'POST',headers:{'x-seed-token':'hpRxBuOulQwEiswCfHZOUeqNYmxxnQ1o'}}).then(r=>r.json()).then(console.log).catch(console.error)\"",
+    "seed:clear": "tsx src/seeders/userSeeder.ts --clear",
+    "seed:production:live": "curl -X POST https://your-app.vercel.app/api/admin/seed -H 'x-seed-token: hpRxBuOulQwEiswCfHZOUeqNYmxxnQ1o'",
+    "postinstall": "npm run seed:production"
   },
   "repository": {
     "type": "git",
@@ -34,7 +39,8 @@
     "express-session": "^1.18.2",
     "helmet": "^8.1.0",
     "jsonwebtoken": "^9.0.2",
-    "mongoose": "^8.18.0"
+    "mongoose": "^8.18.0",
+    "serve-favicon": "^2.5.1"
   },
   "devDependencies": {
     "@types/bcryptjs": "^2.4.6",
@@ -46,8 +52,11 @@
     "@types/jsonwebtoken": "^9.0.10",
     "@types/mongoose": "^5.11.96",
     "@types/node": "^24.3.1",
+    "@types/serve-favicon": "^2.5.7",
     "nodemon": "^3.1.10",
     "ts-node": "^10.9.2",
-    "typescript": "^5.9.2"
+    "tsx": "^4.20.5",
+    "typescript": "^5.9.2",
+    "vercel": "^47.1.3"
   }
 }

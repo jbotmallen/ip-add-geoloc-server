@@ -7,14 +7,19 @@ import dotenv from 'dotenv';
 
 import authRoutes from './routes/auth.routes';
 import geolocationRoutes from './routes/geolocation.routes';
+
 import { errorHandler, notFound } from './middleware/errorHandler';
 import logger from './middleware/logger';
 import { ensureDbConnected } from './middleware/dbConnection';
+
+import path from 'path';
+import serveFavicon from 'serve-favicon';
 
 dotenv.config();
 
 const app: Application = express();
 
+app.use(serveFavicon(path.join(__dirname, 'public', 'favicon.ico')));
 app.set('trust proxy', 1);
 app.use(helmet({
     contentSecurityPolicy: process.env.NODE_ENV === 'production' ? undefined : false
